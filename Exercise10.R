@@ -12,7 +12,7 @@ M0=5
 rN=rM=0.1
 K=1000000
 timesteps = 100
-treatment = T
+treatment = F
 
 # create vector to store N's and M's
 Ns=numeric(length=timesteps)
@@ -23,24 +23,33 @@ Ms[1]=M0
 #for loop
 for(t in 1:timesteps){
   if (treatment = T){
+    if(t<100){
     #normal population
-    N[t+1] = N[t]+rN*N[t](1-(N[t]+M[t]/K))
-    #mutant population
-    M[t+1] = M[t]+rM*M[t](1-(N[t]+M[t]/K))
+    Ns[t+1] = Ns[t]+rN*Ns[t](1-(Ns[t]+Ms[t]/K))
+    }else if(t>=100){
+      #normal population
+      Ns[t+1] = Ns[t]+rN*Ns[t](1-(Ns[t]+Ms[t]/K))
+      #mutant population
+      Ms[t+1] = Ms[t]+rM*Ms[t](1-(Ns[t]+Ms[t]/K))
+    }
   }else if (treatment = F){
     rM=rN*.5
     rN=-0.1
-    #normal population
-    N[t+1] = N[t]+rN*N[t](1-(N[t]+M[t]/K))
-    #mutant population
-    M[t+1] = M[t]+rM*M[t](1-(N[t]+M[t]/K))
+    if(t<100){
+      #normal population
+      Ns[t+1] = Ns[t]+rN*Ns[t](1-(Ns[t]+Ms[t]/K))
+    }else if(t>=100){
+      #normal population
+      Ns[t+1] = Ns[t]+rN*Ns[t](1-(Ns[t]+Ms[t]/K))
+      #mutant population
+      Ms[t+1] = Ms[t]+rM*Ms[t](1-(Ns[t]+Ms[t]/K))
+    }
   }
 }
 
-
 # plot simulation
-library(ggplot2)
-popN<-data.frame(time=1:length(Ns),N=Ns)
-popN<-data.frame(time=1:length(Ms), M=Ms)
-ggplot(data=pop, aes(x=time, y=N))+geom_line()
-ggplot(data=pop, aes(x=time, y=M))+geom_line()
+simEvents<-data.frame(time=1:length(Ns),N=Ns,M=Ms)
+ggplot(data=simEvents)+
+  geom_line(aes(x=time,y=N),col='black')+
+  geom_line(aes(x=time,y=M),col='red')+
+  theme_classic()
