@@ -9,8 +9,8 @@ k <- 10^6
 # Mt = Mt + rM * Mt (1 - (Nt + Mt)/k)
 popN <- c(1:365)
 popM <- c(1:365)
-Nt <- 2 # Starting Population
-Mt <- 2 # Starting population
+Nt <- 1 # Starting Population
+Mt <- 1 # Starting Population
 day <- 0
 
 # This loop is the model
