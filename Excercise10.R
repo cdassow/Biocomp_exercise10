@@ -1,0 +1,84 @@
+# Excercise 10
+
+# parameters
+rn = 0.1
+rm = 0.1
+K = 1000000
+Nt = 1
+Mt = 1
+timesteps = 250
+
+# create vector to store N and M and set initial N,M
+N = numeric(length=timesteps)
+N[1] = Nt
+M = numeric(length=timesteps)
+M[1] = 0
+
+# simulate
+for (t in c(1:timesteps-1)){
+  if (Nt < 100){
+    Nt = Nt + rn*Nt*(1-(Nt+Mt)/K)
+    N[t+1] = Nt
+    M[t+1] = 0
+  }else{
+    Nt = Nt + rn*Nt*(1-(Nt+Mt)/K)
+    Mt = Mt + rm*Mt*(1-(Nt+Mt)/K)
+    N[t+1] = Nt
+    M[t+1] = Mt
+  }
+}
+
+
+# plot result
+time = c(1:timesteps)
+plot(N ~ time, col = 'blue')
+points(M ~ time, col = 'red')
+
+# after treatment
+
+# parameters
+rn = 0.1
+rm = 0.1
+rnD = -0.1
+rmD = 0.05
+K = 1000000
+Nt = 1
+Mt = 1
+timesteps = 600
+
+# create vector to store N and M and set initial N,M
+N = numeric(length=timesteps)
+N[1] = Nt
+M = numeric(length=timesteps)
+M[1] = 0
+
+# simulate
+for (t in c(1:timesteps-1)){
+  if (Nt < 100 & t < 200){
+    Nt = Nt + rn*Nt*(1-(Nt+0)/K)
+    N[t+1] = Nt
+    M[t+1] = 0
+  }else{
+    if (t < 200){
+      Nt = Nt + rn*Nt*(1-(Nt+Mt)/K)
+      Mt = Mt + rm*Mt*(1-(Nt+Mt)/K)
+    }else{
+      Nt = Nt + rnD*Nt*(1-(Nt+Mt)/K)
+      Mt = Mt + rmD*Mt*(1-(Nt+Mt)/K)
+    }
+    N[t+1] = Nt
+    M[t+1] = Mt
+  }
+}
+
+
+# plot result
+time = c(1:timesteps)
+plot(M ~ time, col = 'blue', type = "l", lty = 1, ylim = c(0,K),
+     xlab = 'Time (Step)', ylab = 'Cell Number', main = 'Wild Type vs Mutated Cacner Cells Proliferation')
+points(N ~ time, col = 'red',type = "l", lty = 1)
+legend("topleft", legend = c('Mutated Cells', 'Wild Type Cells'),
+       col = c('blue', 'red'), lty = 1, cex = 0.8)
+
+
+
