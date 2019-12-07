@@ -34,6 +34,8 @@ time = c(1:timesteps)
 plot(N ~ time, col = 'blue')
 points(M ~ time, col = 'red')
 
+
+
 # after treatment
 
 # parameters
@@ -44,7 +46,8 @@ rmD = 0.05
 K = 1000000
 Nt = 1
 Mt = 1
-timesteps = 600
+timesteps = 800
+treattime = 300
 
 # create vector to store N and M and set initial N,M
 N = numeric(length=timesteps)
@@ -54,12 +57,12 @@ M[1] = 0
 
 # simulate
 for (t in c(1:timesteps-1)){
-  if (Nt < 100 & t < 200){
+  if (Nt < 100 & t < treattime){
     Nt = Nt + rn*Nt*(1-(Nt+0)/K)
     N[t+1] = Nt
     M[t+1] = 0
   }else{
-    if (t < 200){
+    if (t < treattime){
       Nt = Nt + rn*Nt*(1-(Nt+Mt)/K)
       Mt = Mt + rm*Mt*(1-(Nt+Mt)/K)
     }else{
