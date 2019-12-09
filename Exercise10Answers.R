@@ -22,11 +22,11 @@ Ms[1]=M0
 for (t in 1:(timesteps-1)){
   if(t>250){
     rn=-.1  #when equilibrium has been reached (by 250), drug treatment
-    rm=.05  #is added
+    rm=.05  #is added so growth rates change
     Ns[t+1]=Ns[t]+rn*Ns[t]*(1-(Ns[t]+Ms[t])/K)
     Ms[t+1]=Ms[t]+rm*Ms[t]*(1-(Ns[t]+Ms[t])/K)
   }else{
-    rn=.1
+    rn=.1 #growth rates without drug treatment
     rm=.1
     Ns[t+1]=Ns[t]+rn*Ns[t]*(1-(Ns[t]+Ms[t])/K)
     Ms[t+1]=Ms[t]+rm*Ms[t]*(1-(Ns[t]+Ms[t])/K)
@@ -37,6 +37,7 @@ for (t in 1:(timesteps-1)){
 library(ggplot2)
 growth=data.frame(time=1:length(Ns), N=Ns, M=Ms)
 ggplot(data=growth)+
-  geom_line(aes(x=time, y=N), col='green')+
-  geom_line(aes(x=time, y=M), col='red')+
+  geom_line(aes(x=time, y=N), col='green')+ #Non-mutant cell growth is green
+  geom_line(aes(x=time, y=M), col='red')+   #Mutant cell growth is red line
   ylab("Number of Cells")+theme_classic()
+
