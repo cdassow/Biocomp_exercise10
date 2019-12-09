@@ -1,13 +1,13 @@
 #tutorial 10
 
 #set initial values and parameters
-N0 <- 1
+N0 <- 99
 M0 <- 1
 rN <- rM <- 0.1
 K <- 1000000
 timesteps <- 400
-rNc <- 0.5*rN
-rMc <- -0.1
+rMc <- 0.5*rM   #growth rate with drug
+rNc <- -0.1     #growth rate with drug
 
 #create vector to store Ns
 Ns <- numeric(length=timesteps)
@@ -23,7 +23,7 @@ Ms[1] <- M0
 for(t in 1:timesteps){
   Ns[t+1] <- Ns[t] + rN*Ns[t]*(1-(Ns[t]+Ms[t])/K)
   Ms[t+1] <- Ms[t] + rM*Ms[t]*(1-(Ns[t]+Ms[t])/K)
-  if(t>198){   #they hit 4.99 at timestep 198, and 5 is the real equilibrium, but as it's a limit, it's never exactly hit
+  if(t>186){     #at t=186, equilibrium is reached (numbers of cells get very close to their limits) 
     Ns[t+1] <- Ns[t] + rNc*Ns[t]*(1-(Ns[t]+Ms[t])/K)
     Ms[t+1] <- Ms[t] + rMc*Ms[t]*(1-(Ns[t]+Ms[t])/K)  
   }
@@ -34,9 +34,11 @@ for(t in 1:timesteps){
 library(ggplot2)
 df <- data.frame(time=1:(timesteps+1),NonMutant=Ns,Mutant=Ms)
 ggplot(data=df)+
-  geom_line(aes(x=time,y=NonMutant))+
-  geom_line(aes(x=time,y=Mutant),col="red")+
-  theme_classic() 
+  geom_line(aes(x=time,y=NonMutant),col="red")+
+  geom_line(aes(x=time,y=Mutant),col="blue")+
+  theme_classic()+
+  ylab("number of cells")+
+  ggtitle("Mutant and nonmutant cell growth model")
 
 
 
