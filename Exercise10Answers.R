@@ -40,4 +40,3 @@ ggplot(data=growth)+
   geom_line(aes(x=time, y=N), col='green')+
   geom_line(aes(x=time, y=M), col='red')+
   ylab("Number of Cells")+theme_classic()
-
