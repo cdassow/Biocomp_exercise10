@@ -35,7 +35,7 @@ TumorPop<-function(No=1, Mo=1, timesteps=750, K=1000000, rN=0.1, rM=0.1, rN2=-0.
       Ns[t+1]<-Ns[t]+(rN*Ns[t]*(1-((Ns[t]+Ms[t])/K)))
       Ms[t+1]<-Ms[t]+(rM*Ms[t]*(1-((Ms[t]+Ns[t])/K)))
     }
-    if(t>=100){
+    if(t>=250){
       rN=rN2
       rM=rM2
       Ns[t+1]<-Ns[t]+(rN*Ns[t]*(1-((Ns[t]+Ms[t])/K)))
@@ -57,6 +57,11 @@ Population$MutantPopulation<-MutantPop
 #Load ggplot
 library(ggplot2)
 #Create Plot
+#Normal cell population is blue
+#Mutant cell population is red
 ggplot(data=Population)+
   geom_line(aes(x=time,y=NormalPopulation), col="blue")+
-  geom_line(aes(x=time,y=MutationPopulation), col="red")
+  geom_line(aes(x=time,y=MutantPopulation), col="red")+
+  theme_classic()+
+  xlab("Time (Number of Cell Divisions)")+ ylab("Number of Cells")
+  
