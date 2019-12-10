@@ -2,7 +2,7 @@ setwd("~/Desktop/biocompshell/Biocomp_exercise10/")
 library(ggplot2)
 
 #Make a function (cancersim) to simulate the growth of the two populations after mutation occurs
-#timesteps=number of divisions for simulatin
+#timesteps=number of divisions for simulation
 #K=carrying capacity
 #r=rate of growth before drug treament
 #rdrug=rate of growth in nonmutant cells after drug treatment
