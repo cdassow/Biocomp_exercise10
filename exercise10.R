@@ -13,7 +13,7 @@ timesteps = 1000
 NsCancer=numeric(length=timesteps)
 NsCancer[1]=N0
 
-#Vector to hold mutant cancer cells the vector is filled to 1s to satify later NsMutant[t-1] conditional
+#Vector to hold mutant cancer cells. The vector is filled to 1s to satify later NsMutant[t-1] conditional
 NsMutant=numeric(length=timesteps)
 NsMutant[]=N0
 
