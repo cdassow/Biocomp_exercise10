@@ -35,7 +35,7 @@ ggplot(data = tumorpop, aes(x=time)) +
   geom_line(aes(y=M, col="red")) +
   ylab("Population") +
   labs(col = "Cell type")  +
-#   scale_color_manual(labels = c("Non-mutant", "Mutant"), values = c("blue", "red"))
+  scale_color_manual(labels = c("Non-mutant", "Mutant"), values = c("blue", "red"))
 
 
                                                 
