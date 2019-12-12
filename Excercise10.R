@@ -6,15 +6,15 @@ rm = 0.1
 K = 1000000
 Nt = 1
 Mt = 1
-timesteps = 250
+timesteps = 500
 
 # create vector to store N and M and set initial N,M
 N = numeric(length=timesteps)
-N[1] = Nt
+N[1] = 1
 M = numeric(length=timesteps)
 M[1] = 0
 
-# simulate
+# simulate growth without treatment
 for (t in c(1:timesteps-1)){
   if (Nt < 100){
     Nt = Nt + rn*Nt*(1-(Nt+Mt)/K)
@@ -29,33 +29,31 @@ for (t in c(1:timesteps-1)){
 }
 
 
-# plot result
+# plot result without treatments
 time = c(1:timesteps)
-plot(N ~ time, col = 'blue')
-points(M ~ time, col = 'red')
+plot(N ~ time, col = 'blue', type = 'l')
+lines(M ~ time, col = 'red')
 
 
-
-# after treatment
-
+# add treatment sometime
 # parameters
 rn = 0.1
 rm = 0.1
-rnD = -0.1
-rmD = 0.05
+rnD = -0.1 # growth rate under drug treatment
+rmD = 0.05 # growth rate under drug treatment
 K = 1000000
 Nt = 1
 Mt = 1
-timesteps = 800
-treattime = 300
+timesteps = 1000
+treattime = 300 # we set teatment time at 300 because we found they reach equilibrium after about 250 timestep
 
 # create vector to store N and M and set initial N,M
 N = numeric(length=timesteps)
-N[1] = Nt
+N[1] = 1
 M = numeric(length=timesteps)
 M[1] = 0
 
-# simulate
+# simulate under treatment at treatment time
 for (t in c(1:timesteps-1)){
   if (Nt < 100 & t < treattime){
     Nt = Nt + rn*Nt*(1-(Nt+0)/K)
