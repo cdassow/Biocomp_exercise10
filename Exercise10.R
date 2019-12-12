@@ -11,10 +11,10 @@ M0=1
 # parameters: growth rate and limitations
 rN = rM = 0.1
 rN_drug = -0.1
-rM_drug = 0.5
+rM_drug = 0.05
 K=1000000
 timesteps = 1000
-eQ=285
+eQ=325
 
 # create vector to store N's and M's
 Ns=numeric(length=timesteps)
@@ -43,7 +43,6 @@ ggplot(data=simEvents)+
   geom_line(aes(x=time,y=N,colour="NonMutant"))+
   geom_line(aes(x=time,y=M,colour="Mutant"))+
   theme_classic()+
-  theme(legend.position="top")+
   scale_colour_manual(values=c("NonMutant"="black", "Mutant"="red"))+
   xlab("Time (days)")+
   ylab("Number of Cells")
