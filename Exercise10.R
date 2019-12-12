@@ -18,35 +18,33 @@ treatment = F
 Ns=numeric(length=timesteps)
 Ns[1]=N0
 Ms=numeric(length=timesteps)
-Ms[1]=M0
+Ms[100]=M0
 
 #for loop
 for(t in 1:timesteps-1){
   if (treatment == F){
-    if(t<100){
-    #normal population
-    Ns[t+1] = Ns[t]+rN*Ns[t]*(1-(Ns[t]+Ms[t])/K)
-    }else if(t>=100){
-      M0=1
-      Ms[1]=M0
+    if(t>=100){
       #normal population
-      Ns[t+1] = Ns[t]+rN*Ns[t]*(1-(Ns[t]+Ms[t])/K)
+      Ns[t+1]=Ns[t]+rN*Ns[t]*((1-(Ns[t]+Ms[t])/K))
       #mutant population
-      Ms[t+1] = Ms[t]+rM*Ms[t]*(1-(Ns[t]+Ms[t])/K)
+      Ms[t+1] = Ms[t]+rM*Ms[t]*((1-(Ns[t]+Ms[t])/K))
+    }else if(t<100){
+      #normal population
+      Ns[t+1] = Ns[t]+rN*Ns[t]*((1-(Ns[t]+Ms[t])/K))
     }
   }else if (treatment == T){
     rM=rN*.5
     rN=-0.1
-    if(t<100){
-      #normal population
-      Ns[t+1] = Ns[t]+rN*Ns[t]*(1-(Ns[t]+Ms[t])/K)
-    }else if(t>=100){
+    if(t>=100){
       M0=1
-      Ms[1]=M0
+      Ms[100]=M0
       #normal population
-      Ns[t+1] = Ns[t]+rN*Ns[t]*(1-(Ns[t]+Ms[t])/K)
+      Ns[t+1] = Ns[t]+rN*Ns[t]*(1-((Ns[t]+Ms[t])/K))
       #mutant population
-      Ms[t+1] = Ms[t]+rM*Ms[t]*(1-(Ns[t]+Ms[t])/K)
+      Ms[t+1] = Ms[t]+rM*Ms[t]*(1-((Ns[t]+Ms[t])/K))
+    }else if(t>=100){
+      #normal population
+      Ns[t+1] = Ns[t]+rN*Ns[t]*(1-((Ns[t]+Ms[t])/K))
     }
   }
 }
